@@ -64,203 +64,446 @@ IceCubesApp-main/
 │   │   ├── IceCubesApp.swift       # @main 应用程序入口
 │   │   ├── ContentView.swift       # 主内容视图（视图容器）
 │   │   ├── SidebarView.swift       # 侧边栏（iPadOS/macOS）
-│   │   └── MainTab.swift           # 主标签栏控制
+│   │   ├── MainTab.swift           # 主标签栏控制
+│   │   ├── AppDelegate.swift       # 应用代理
+│   │   ├── SceneDelegate.swift     # 场景代理
+│   │   ├── RootView.swift          # 根视图
+│   │   └── LaunchView.swift        # 启动屏幕
 │   ├── Assets.xcassets/            # 图片、图标、色集资源
 │   │   ├── AppIcon.appiconset/     # 应用图标（所有尺寸）
 │   │   ├── Colors/                 # 自定义色集
 │   │   └── Images/                 # 其他图像资源
 │   ├── Resources/                  # 本地化和其他资源
-│   │   └── Localizable.strings     # 多语言字符串
+│   │   ├── Localizable.strings     # 多语言字符串
+│   │   └── Localizable.dev.strings # 开发本地化
 │   ├── Info.plist                  # 应用配置
-│   └── Embeds/                     # 嵌入式资源
+│   ├── Embeds/                     # 嵌入式资源
+│   └── Generated/                  # 生成的文件
 │
 ├── Packages/                       # 🏗️ Swift 包（模块化架构 - 13 个包）
-│   ├── Account/                    # 账户管理模块 (~30 文件)
-│   │   ├── Views/
-│   │   │   ├── AccountDetailView.swift
-│   │   │   ├── AccountEditView.swift
-│   │   │   └── PrivacySettingsView.swift
-│   │   ├── Package.swift
-│   │   └── Sources/
+│   ├── Account/                    # 📋 账户管理模块 (~30 文件)
+│   │   ├── Sources/Account/
+│   │   │   ├── Views/
+│   │   │   │   ├── AccountDetailView.swift
+│   │   │   │   ├── AccountEditView.swift
+│   │   │   │   ├── PrivacySettingsView.swift
+│   │   │   │   ├── FollowersView.swift
+│   │   │   │   ├── FollowingView.swift
+│   │   │   │   ├── AccountStatusesView.swift
+│   │   │   │   └── AccountMutingView.swift
+│   │   │   ├── Models/
+│   │   │   │   ├── AccountEditState.swift
+│   │   │   │   └── ProfileField.swift
+│   │   │   ├── Services/
+│   │   │   │   ├── AccountService.swift
+│   │   │   │   └── RelationshipService.swift
+│   │   │   └── AccountPackage.swift
+│   │   └── Package.swift
 │   │
-│   ├── AppAccount/                 # 应用账户管理 (~25 文件)
-│   │   ├── AppAccountsManager.swift
-│   │   ├── AccountViewModel.swift
-│   │   └── AccountSelectionView.swift
+│   ├── AppAccount/                 # 🔐 应用账户管理 (~25 文件)
+│   │   ├── Sources/AppAccount/
+│   │   │   ├── AppAccountsManager.swift
+│   │   │   ├── AccountSelectionView.swift
+│   │   │   ├── AddAccountView.swift
+│   │   │   ├── LoginView.swift
+│   │   │   ├── AuthorizationView.swift
+│   │   │   ├── Models/
+│   │   │   │   ├── AppAccount.swift
+│   │   │   │   ├── AuthenticationState.swift
+│   │   │   │   └── OAuthResponse.swift
+│   │   │   ├── Services/
+│   │   │   │   ├── KeychainManager.swift
+│   │   │   │   └── AuthenticationService.swift
+│   │   │   └── AppAccountPackage.swift
+│   │   └── Package.swift
 │   │
-│   ├── Conversations/              # 直接消息模块 (~35 文件)
-│   │   ├── Views/
-│   │   │   ├── ConversationsView.swift
-│   │   │   ├── ConversationDetailView.swift
-│   │   │   └── MessageComposerView.swift
-│   │   ├── Models/
-│   │   │   ├── Message.swift
-│   │   │   └── Conversation.swift
+│   ├── Conversations/              # 💬 直接消息模块 (~35 文件)
+│   │   ├── Sources/Conversations/
+│   │   │   ├── Views/
+│   │   │   │   ├── ConversationsView.swift
+│   │   │   │   ├── ConversationDetailView.swift
+│   │   │   │   ├── MessageComposerView.swift
+│   │   │   │   ├── ChatBubbleView.swift
+│   │   │   │   └── MessageListView.swift
+│   │   │   ├── Models/
+│   │   │   │   ├── Message.swift
+│   │   │   │   ├── Conversation.swift
+│   │   │   │   └── ChatState.swift
+│   │   │   ├── Services/
+│   │   │   │   ├── ConversationService.swift
+│   │   │   │   └── MessageService.swift
+│   │   │   └── ConversationsPackage.swift
 │   │   └── Package.swift
 │   │
 │   ├── DesignSystem/               # 🎨 设计系统 (~100+ 文件)
-│   │   ├── Sources/
-│   │   │   ├── Theme.swift         # 主题系统
-│   │   │   ├── Colors.swift        # 颜色定义
-│   │   │   ├── Typography.swift    # 字体系统
-│   │   │   ├── Components/         # 可复用 UI 组件
-│   │   │   │   ├── Button.swift
-│   │   │   │   ├── TextField.swift
-│   │   │   │   ├── Card.swift
-│   │   │   │   └── ...
-│   │   │   └── Modifiers/          # SwiftUI 修饰符
+│   │   ├── Sources/DesignSystem/
+│   │   │   ├── Theme/
+│   │   │   │   ├── Theme.swift
+│   │   │   │   ├── Color+Theme.swift
+│   │   │   │   ├── Font+Theme.swift
+│   │   │   │   └── AppTheme.swift
+│   │   │   ├── Colors/
+│   │   │   │   ├── Colors.swift
+│   │   │   │   └── DynamicColor.swift
+│   │   │   ├── Typography/
+│   │   │   │   ├── Typography.swift
+│   │   │   │   ├── FontSizes.swift
+│   │   │   │   └── LineHeights.swift
+│   │   │   ├── Components/
+│   │   │   │   ├── ButtonStyles/
+│   │   │   │   │   ├── PrimaryButton.swift
+│   │   │   │   │   ├── SecondaryButton.swift
+│   │   │   │   │   └── IconButton.swift
+│   │   │   │   ├── TextFields/
+│   │   │   │   │   ├── AppTextField.swift
+│   │   │   │   │   └── SearchTextField.swift
+│   │   │   │   ├── Cards/
+│   │   │   │   │   ├── Card.swift
+│   │   │   │   │   ├── StatusCard.swift
+│   │   │   │   │   └── AccountCard.swift
+│   │   │   │   ├── Loading/
+│   │   │   │   │   ├── ProgressView+Loading.swift
+│   │   │   │   │   └── SkeletonView.swift
+│   │   │   │   ├── Alerts/
+│   │   │   │   │   ├── AlertView.swift
+│   │   │   │   │   └── ContextMenu.swift
+│   │   │   │   ├── Dividers/
+│   │   │   │   │   └── Divider.swift
+│   │   │   │   └── Navigation/
+│   │   │   │       ├── NavigationBar.swift
+│   │   │   │       └── TabBar.swift
+│   │   │   ├── Modifiers/
+│   │   │   │   ├── View+Extensions.swift
+│   │   │   │   ├── Shapes.swift
+│   │   │   │   ├── Animations.swift
+│   │   │   │   └── CustomModifiers.swift
+│   │   │   └── DesignSystemPackage.swift
 │   │   └── Package.swift
 │   │
 │   ├── Env/                        # 🔧 环境和依赖注入 (~40 文件)
-│   │   ├── Sources/
-│   │   │   ├── Env.swift           # 核心环境对象
-│   │   │   ├── Router.swift        # 路由管理
-│   │   │   ├── CurrentAccount.swift# 当前账户
-│   │   │   ├── AppPreferences.swift# 应用偏好
-│   │   │   └── Services/           # 各类服务
-│   │   │       ├── ThemeService.swift
-│   │   │       ├── AuthService.swift
-│   │   │       └── ...
+│   │   ├── Sources/Env/
+│   │   │   ├── Core/
+│   │   │   │   ├── Env.swift           # 核心环境对象
+│   │   │   │   └── AppState.swift      # 应用状态
+│   │   │   ├── Router/
+│   │   │   │   ├── Router.swift        # 路由管理
+│   │   │   │   ├── NavigationPath.swift
+│   │   │   │   └── Route.swift
+│   │   │   ├── Account/
+│   │   │   │   ├── CurrentAccount.swift# 当前账户
+│   │   │   │   └── AccountManager.swift
+│   │   │   ├── Preferences/
+│   │   │   │   ├── AppPreferences.swift# 应用偏好
+│   │   │   │   ├── UserDefaults+Codable.swift
+│   │   │   │   └── Settings.swift
+│   │   │   ├── Services/
+│   │   │   │   ├── ThemeService.swift
+│   │   │   │   ├── AuthService.swift
+│   │   │   │   ├── CacheService.swift
+│   │   │   │   ├── NotificationService.swift
+│   │   │   │   ├── AnalyticsService.swift
+│   │   │   │   └── NetworkMonitor.swift
+│   │   │   ├── Logger/
+│   │   │   │   ├── Logger.swift
+│   │   │   │   └── LogLevel.swift
+│   │   │   └── EnvPackage.swift
 │   │   └── Package.swift
 │   │
 │   ├── Explore/                    # 🔍 探索/搜索模块 (~45 文件)
-│   │   ├── Views/
-│   │   │   ├── ExploreView.swift
-│   │   │   ├── SearchView.swift
-│   │   │   ├── TrendingView.swift
-│   │   │   └── SearchResultsView.swift
-│   │   ├── Models/
-│   │   │   ├── TrendingTag.swift
-│   │   │   ├── SearchResult.swift
-│   │   │   └── TrendingLink.swift
+│   │   ├── Sources/Explore/
+│   │   │   ├── Views/
+│   │   │   │   ├── ExploreView.swift
+│   │   │   │   ├── SearchView.swift
+│   │   │   │   ├── TrendingView.swift
+│   │   │   │   ├── SearchResultsView.swift
+│   │   │   │   ├── TrendingTagsView.swift
+│   │   │   │   ├── TrendingAccountsView.swift
+│   │   │   │   └── TrendingLinksView.swift
+│   │   │   ├── Models/
+│   │   │   │   ├── TrendingTag.swift
+│   │   │   │   ├── SearchResult.swift
+│   │   │   │   ├── TrendingLink.swift
+│   │   │   │   ├── SearchState.swift
+│   │   │   │   └── SearchFilter.swift
+│   │   │   ├── Services/
+│   │   │   │   ├── SearchService.swift
+│   │   │   │   └── TrendingService.swift
+│   │   │   └── ExplorePackage.swift
 │   │   └── Package.swift
 │   │
 │   ├── Lists/                      # 📋 列表管理 (~30 文件)
-│   │   ├── Views/
-│   │   │   ├── ListsView.swift
-│   │   │   ├── ListDetailView.swift
-│   │   │   └── ListEditView.swift
-│   │   ├── Models/
-│   │   │   └── List.swift
+│   │   ├── Sources/Lists/
+│   │   │   ├── Views/
+│   │   │   │   ├── ListsView.swift
+│   │   │   │   ├── ListDetailView.swift
+│   │   │   │   ├── ListEditView.swift
+│   │   │   │   ├── CreateListView.swift
+│   │   │   │   └── ListAccountsView.swift
+│   │   │   ├── Models/
+│   │   │   │   ├── List.swift
+│   │   │   │   ├── ListAccount.swift
+│   │   │   │   └── ListState.swift
+│   │   │   ├── Services/
+│   │   │   │   └── ListService.swift
+│   │   │   └── ListsPackage.swift
 │   │   └── Package.swift
 │   │
 │   ├── MediaUI/                    # 🖼️ 媒体查看器 (~50 文件)
-│   │   ├── Views/
-│   │   │   ├── ImageViewer.swift   # 图片查看和缩放
-│   │   │   ├── VideoPlayer.swift   # 视频播放
-│   │   │   ├── MediaGallery.swift  # 媒体画廊
-│   │   │   └── MediaSharing.swift  # 分享功能
-│   │   ├── Models/
-│   │   │   └── MediaAttachment.swift
+│   │   ├── Sources/MediaUI/
+│   │   │   ├── Views/
+│   │   │   │   ├── ImageViewer.swift   # 图片查看和缩放
+│   │   │   │   ├── VideoPlayer.swift   # 视频播放
+│   │   │   │   ├── MediaGallery.swift  # 媒体画廊
+│   │   │   │   ├── MediaSharing.swift  # 分享功能
+│   │   │   │   ├── GifViewer.swift
+│   │   │   │   ├── AudioPlayer.swift
+│   │   │   │   └── MediaPicker.swift
+│   │   │   ├── Models/
+│   │   │   │   ├── MediaAttachment.swift
+│   │   │   │   ├── MediaType.swift
+│   │   │   │   ├── ImageViewerState.swift
+│   │   │   │   └── MediaItem.swift
+│   │   │   ├── Services/
+│   │   │   │   ├── ImageCacheService.swift
+│   │   │   │   ├── MediaLoader.swift
+│   │   │   │   └── ImageProcessor.swift
+│   │   │   └── MediaUIPackage.swift
 │   │   └── Package.swift
 │   │
 │   ├── Models/                     # 📦 数据模型 (~80+ 文件)
-│   │   ├── Sources/
-│   │   │   ├── Status.swift        # 帖子/状态模型
-│   │   │   ├── Account.swift       # 账户模型
-│   │   │   ├── Notification.swift  # 通知模型
-│   │   │   ├── Media.swift         # 媒体模型
-│   │   │   ├── Emoji.swift         # 自定义表情符号
-│   │   │   ├── Tag.swift           # 标签模型
-│   │   │   ├── Instance.swift      # 实例配置
-│   │   │   ├── Filter.swift        # 过滤器配置
-│   │   │   ├── Poll.swift          # 投票模型
-│   │   │   └── ...                 # 更多模型
+│   │   ├── Sources/Models/
+│   │   │   ├── Mastodon/
+│   │   │   │   ├── Status.swift        # 帖子/状态模型
+│   │   │   │   ├── Account.swift       # 账户模型
+│   │   │   │   ├── Notification.swift  # 通知模型
+│   │   │   │   ├── Media.swift         # 媒体模型
+│   │   │   │   ├── Emoji.swift         # 自定义表情符号
+│   │   │   │   ├── Tag.swift           # 标签模型
+│   │   │   │   ├── Instance.swift      # 实例配置
+│   │   │   │   ├── Filter.swift        # 过滤器配置
+│   │   │   │   ├── Poll.swift          # 投票模型
+│   │   │   │   ├── Context.swift       # 对话上下文
+│   │   │   │   ├── Relationship.swift  # 用户关系
+│   │   │   │   ├── Search.swift        # 搜索结果
+│   │   │   │   ├── FeaturedTag.swift   # 特色标签
+│   │   │   │   ├── List.swift          # 列表模型
+│   │   │   │   ├── Marker.swift        # 位置标记
+│   │   │   │   ├── Source.swift        # 来源信息
+│   │   │   │   ├── Application.swift   # 应用信息
+│   │   │   │   ├── PushSubscription.swift
+│   │   │   │   └── Preference.swift
+│   │   │   ├── Codable/
+│   │   │   │   ├── CodableExtensions.swift
+│   │   │   │   └── JSONDecoder+Custom.swift
+│   │   │   ├── Helpers/
+│   │   │   │   ├── URLDecoder.swift
+│   │   │   │   ├── DateFormatter+Helper.swift
+│   │   │   │   └── HTMLParser.swift
+│   │   │   └── ModelsPackage.swift
 │   │   └── Package.swift
 │   │
 │   ├── NetworkClient/              # 🌐 网络通信客户端 (~100+ 文件)
-│   │   ├── Sources/
-│   │   │   ├── Client.swift        # 主 API 客户端
-│   │   │   ├── Endpoints/          # API 端点定义
+│   │   ├── Sources/NetworkClient/
+│   │   │   ├── Client/
+│   │   │   │   ├── Client.swift        # 主 API 客户端
+│   │   │   │   ├── HTTPClient.swift
+│   │   │   │   ├── RequestBuilder.swift
+│   │   │   │   └── ResponseHandler.swift
+│   │   │   ├── Endpoints/
 │   │   │   │   ├── StatusEndpoints.swift
 │   │   │   │   ├── AccountEndpoints.swift
 │   │   │   │   ├── TimelineEndpoints.swift
-│   │   │   │   └── ...
-│   │   │   ├── URLSession+Extensions.swift
-│   │   │   ├── OpenAIClient.swift  # OpenAI 集成
-│   │   │   ├── DeepLClient.swift   # DeepL 翻译
-│   │   │   └── Streaming.swift     # WebSocket 流
+│   │   │   │   ├── SearchEndpoints.swift
+│   │   │   │   ├── NotificationEndpoints.swift
+│   │   │   │   ├── ListEndpoints.swift
+│   │   │   │   ├── MediaEndpoints.swift
+│   │   │   │   ├── FilterEndpoints.swift
+│   │   │   │   ├── InstanceEndpoints.swift
+│   │   │   │   ├── PushEndpoints.swift
+│   │   │   │   ├── TagEndpoints.swift
+│   │   │   │   ├── ConversationEndpoints.swift
+│   │   │   │   └── OAuthEndpoints.swift
+│   │   │   ├── Extensions/
+│   │   │   │   ├── URLSession+Extensions.swift
+│   │   │   │   ├── URLRequest+Builder.swift
+│   │   │   │   └── Data+Compression.swift
+│   │   │   ├── AI/
+│   │   │   │   ├── OpenAIClient.swift  # OpenAI 集成
+│   │   │   │   ├── OpenAIModels.swift
+│   │   │   │   └── DeepLClient.swift   # DeepL 翻译
+│   │   │   ├── Streaming/
+│   │   │   │   ├── WebSocketClient.swift # WebSocket 流
+│   │   │   │   ├── EventStream.swift
+│   │   │   │   └── StreamParser.swift
+│   │   │   ├── Error/
+│   │   │   │   ├── APIError.swift
+│   │   │   │   ├── NetworkError.swift
+│   │   │   │   └── ErrorHandler.swift
+│   │   │   ├── Auth/
+│   │   │   │   ├── OAuth2.swift
+│   │   │   │   ├── TokenManager.swift
+│   │   │   │   └── AuthFlow.swift
+│   │   │   └── NetworkClientPackage.swift
 │   │   └── Package.swift
 │   │
 │   ├── Notifications/              # 🔔 通知模块 (~40 文件)
-│   │   ├── Views/
-│   │   │   ├── NotificationsView.swift
-│   │   │   ├── NotificationRow.swift
-│   │   │   └── NotificationDetailView.swift
-│   │   ├── Models/
-│   │   │   └── Notification.swift
+│   │   ├── Sources/Notifications/
+│   │   │   ├── Views/
+│   │   │   │   ├── NotificationsView.swift
+│   │   │   │   ├── NotificationRow.swift
+│   │   │   │   ├── NotificationDetailView.swift
+│   │   │   │   ├── NotificationFilterView.swift
+│   │   │   │   └── NotificationGroupView.swift
+│   │   │   ├── Models/
+│   │   │   │   ├── Notification.swift
+│   │   │   │   ├── NotificationType.swift
+│   │   │   │   ├── NotificationFilter.swift
+│   │   │   │   └── NotificationState.swift
+│   │   │   ├── Services/
+│   │   │   │   ├── NotificationService.swift
+│   │   │   │   ├── PushNotificationManager.swift
+│   │   │   │   └── NotificationGrouper.swift
+│   │   │   └── NotificationsPackage.swift
 │   │   └── Package.swift
 │   │
 │   ├── StatusKit/                  # ✍️ 状态/帖子组件 (~120+ 文件)
-│   │   ├── Views/
-│   │   │   ├── StatusEditor.swift  # 完整编辑器
-│   │   │   ├── StatusRow.swift     # 帖子行展示
-│   │   │   ├── StatusDetail.swift  # 详细视图
-│   │   │   ├── ImagePicker.swift   # 图片选择
-│   │   │   ├── EmojiPicker.swift   # 表情符号选择
-│   │   │   ├── PollEditor.swift    # 投票编辑
-│   │   │   └── ...
-│   │   ├── Models/
-│   │   │   └── StatusEditorState.swift
+│   │   ├── Sources/StatusKit/
+│   │   │   ├── Editor/
+│   │   │   │   ├── StatusEditor.swift      # 完整编辑器
+│   │   │   │   ├── StatusEditorToolbar.swift
+│   │   │   │   ├── StatusEditorContent.swift
+│   │   │   │   ├── CharacterCounter.swift
+│   │   │   │   ├── VisibilityPicker.swift
+│   │   │   │   └── ThreadComposer.swift
+│   │   │   ├── Display/
+│   │   │   │   ├── StatusRow.swift         # 帖子行展示
+│   │   │   │   ├── StatusDetail.swift      # 详细视图
+│   │   │   │   ├── StatusContent.swift
+│   │   │   │   ├── StatusInteraction.swift
+│   │   │   │   ├── StatusMetadata.swift
+│   │   │   │   ├── RichText.swift
+│   │   │   │   └── HTMLRenderer.swift
+│   │   │   ├── Components/
+│   │   │   │   ├── ImagePicker.swift       # 图片选择
+│   │   │   │   ├── EmojiPicker.swift       # 表情符号选择
+│   │   │   │   ├── PollEditor.swift        # 投票编辑
+│   │   │   │   ├── ContentWarning.swift
+│   │   │   │   ├── LanguagePicker.swift
+│   │   │   │   ├── MentionParser.swift
+│   │   │   │   └── HashtagParser.swift
+│   │   │   ├── Models/
+│   │   │   │   ├── StatusEditorState.swift
+│   │   │   │   ├── DraftStatus.swift
+│   │   │   │   ├── TextAttachment.swift
+│   │   │   │   └── StatusContext.swift
+│   │   │   ├── Services/
+│   │   │   │   ├── StatusService.swift
+│   │   │   │   ├── DraftService.swift
+│   │   │   │   └── MediaUploadService.swift
+│   │   │   └── StatusKitPackage.swift
 │   │   └── Package.swift
 │   │
 │   └── Timeline/                   # 📱 时间线模块 (~150+ 文件)
-│       ├── Views/
-│       │   ├── TimelineView.swift  # 主时间线
-│       │   ├── StatusRow.swift     # 帖子行
-│       │   ├── TimelineFilterView.swift
-│       │   ├── LocalTimelineView.swift
-│       │   ├── FederatedView.swift
-│       │   └── TrendingView.swift
-│       ├── Models/
-│       │   ├── Timeline.swift
-│       │   ├── TimelineFilter.swift
-│       │   └── TimelinePosition.swift
-│       ├── Services/
-│       │   ├── TimelineService.swift
-│       │   ├── CacheManager.swift  # Bodega 缓存
-│       │   └── SyncManager.swift   # Marker API 同步
+│       ├── Sources/Timeline/
+│       │   ├── Views/
+│       │   │   ├── TimelineView.swift      # 主时间线
+│       │   │   ├── TimelineContainer.swift
+│       │   │   ├── StatusRow.swift         # 帖子行
+│       │   │   ├── TimelineFilterView.swift
+│       │   │   ├── LocalTimelineView.swift
+│       │   │   ├── FederatedView.swift
+│       │   │   ├── TrendingView.swift
+│       │   │   ├── TagTimelineView.swift
+│       │   │   ├── ListTimelineView.swift
+│       │   │   ├── RemoteTimelineView.swift
+│       │   │   ├── HomeTimelineView.swift
+│       │   │   └── TimelineHeader.swift
+│       │   ├── Models/
+│       │   │   ├── Timeline.swift
+│       │   │   ├── TimelineFilter.swift
+│       │   │   ├── TimelinePosition.swift
+│       │   │   ├── TimelineState.swift
+│       │   │   ├── TimelineCache.swift
+│       │   │   └── ScrollPosition.swift
+│       │   ├── Services/
+│       │   │   ├── TimelineService.swift
+│       │   │   ├── CacheManager.swift      # Bodega 缓存
+│       │   │   ├── SyncManager.swift       # Marker API 同步
+│       │   │   ├── StreamingManager.swift
+│       │   │   ├── PaginationManager.swift
+│       │   │   └── TimelineFetcher.swift
+│       │   ├── ViewModels/
+│       │   │   └── TimelineViewModel.swift
+│       │   └── TimelinePackage.swift
 │       └── Package.swift
 │
 ├── IceCubesAppIntents/             # ⚡ App Intents（快捷指令）
-│   ├── PostIntent.swift            # 发布帖子意图
-│   ├── AppShortcuts.swift          # 快捷指令定义
-│   ├── AppAccountEntity.swift      # 账户实体
-│   ├── TabIntent.swift             # 标签页意图
-│   ├── TimelineFilterEntity.swift   # 时间线过滤实体
-│   └── ListEntity.swift            # 列表实体
+│   ├── Intents/
+│   │   ├── PostIntent.swift            # 发布帖子意图
+│   │   ├── PostMediaIntent.swift
+│   │   ├── PostThreadIntent.swift
+│   │   ├── SearchIntent.swift
+│   │   ├── ViewProfileIntent.swift
+│   │   └── ViewStatusIntent.swift
+│   ├── Entities/
+│   │   ├── AppAccountEntity.swift      # 账户实体
+│   │   ├── TabIntent.swift             # 标签页意图
+│   │   ├── TimelineFilterEntity.swift   # 时间线过滤实体
+│   │   └── ListEntity.swift            # 列表实体
+│   ├── Models/
+│   │   ├── IntentAccount.swift
+│   │   ├── IntentStatus.swift
+│   │   └── IntentList.swift
+│   └── AppShortcuts.swift          # 快捷指令定义
 │
 ├── IceCubesAppWidgetsExtension/    # 📲 主屏幕小部件
-│   ├── IceCubesAppWidgetsExtensionBundle.swift
-│   ├── AccountWidget/              # 账户小部件
-│   │   └── AccountWidgetView.swift
-│   ├── LatestPostsWidget/          # 最新帖子小部件
-│   │   └── LatestPostsWidgetView.swift
-│   ├── MentionWidget/              # 提及小部件
-│   │   └── MentionWidgetView.swift
-│   ├── ListsWidget/                # 列表小部件
-│   │   └── ListsWidgetView.swift
-│   ├── HashtagPostsWidget/         # 标签帖子小部件
-│   │   └── HashtagWidgetView.swift
-│   ├── Shared/                     # 小部件共享逻辑
+│   ├── Widgets/
+│   │   ├── AccountWidget/
+│   │   │   ├── AccountWidgetView.swift
+│   │   │   ├── AccountWidgetEntryView.swift
+│   │   │   └── AccountProvider.swift
+│   │   ├── LatestPostsWidget/
+│   │   │   ├── LatestPostsWidgetView.swift
+│   │   │   ├── LatestPostsEntryView.swift
+│   │   │   └── LatestPostsProvider.swift
+│   │   ├── MentionWidget/
+│   │   │   ├── MentionWidgetView.swift
+│   │   │   ├── MentionEntryView.swift
+│   │   │   └── MentionProvider.swift
+│   │   ├── ListsWidget/
+│   │   │   ├── ListsWidgetView.swift
+│   │   │   ├── ListsEntryView.swift
+│   │   │   └── ListsProvider.swift
+│   │   └── HashtagPostsWidget/
+│   │       ├── HashtagWidgetView.swift
+│   │       ├── HashtagEntryView.swift
+│   │       └── HashtagProvider.swift
+│   ├── Shared/
 │   │   ├── WidgetDefaults.swift
-│   │   └── WidgetModels.swift
+│   │   ├── WidgetModels.swift
+│   │   ├── WidgetBundle.swift
+│   │   └── WidgetConfiguration.swift
 │   └── Assets.xcassets/            # 小部件资源
 │
 ├── IceCubesNotifications/          # 🔔 推送通知服务
-│   ├── NotificationService.swift   # 主服务类
+│   ├── NotificationService.swift       # 主服务类
 │   ├── NotificationServiceSupport.swift
+│   ├── NotificationModels.swift
+│   ├── NotificationDecryption.swift
 │   ├── IceCubesNotifications.entitlements
 │   └── Info.plist
 │
 ├── IceCubesShareExtension/         # 📤 分享扩展
 │   ├── ShareViewController.swift
+│   ├── ShareModels.swift
+│   ├── ShareContent.swift
 │   ├── IceCubesShareExtension.entitlements
 │   └── Info.plist
 │
 ├── IceCubesActionExtension/        # ⚙️ 快速操作扩展
 │   ├── ActionRequestHandler.swift
-│   ├── Action.js                   # JavaScript 操作脚本
+│   ├── ActionModels.swift
+│   ├── Action.js                       # JavaScript 操作脚本
 │   ├── IceCubesActionExtension.entitlements
 │   └── Assets.xcassets/
 │
@@ -270,7 +513,8 @@ IceCubesApp-main/
 │   │   └── Assets/
 │   ├── AppIconAlternate2.icon/
 │   ├── AppIconAlternate46.icon/
-│   └── ...
+│   ├── AppIconAlternate10.icon/
+│   └── ...                          # 更多备选图标
 │
 ├── Images/                         # 📸 文档和宣传图片
 │   ├── promo.png                   # 宣传图
@@ -282,9 +526,38 @@ IceCubesApp-main/
 │   ├── profile.png
 │   └── download_on_the_app_store.svg
 │
+├── Tests/                          # 🧪 测试文件（~60+ 文件）
+│   ├── AccountTests/
+│   │   ├── AccountTests.swift
+│   │   ├── AccountServiceTests.swift
+│   │   └── AccountModelsTests.swift
+│   ├── NetworkTests/
+│   │   ├── ClientTests.swift
+│   │   ├── EndpointTests.swift
+│   │   └── ErrorHandlingTests.swift
+│   ├── TimelineTests/
+│   │   ├── TimelineTests.swift
+│   │   ├── TimelineServiceTests.swift
+│   │   └── CacheTests.swift
+│   ├── StatusKitTests/
+│   │   ├── StatusTests.swift
+│   │   ├── EditorTests.swift
+│   │   └── DraftTests.swift
+│   ├── ModelsTests/
+│   │   ├── StatusDecodingTests.swift
+│   │   ├── AccountDecodingTests.swift
+│   │   └── ModelValidationTests.swift
+│   └── EnvTests/
+│       ├── RouterTests.swift
+│       ├── PreferencesTests.swift
+│       └── StateTests.swift
+│
 ├── ci_scripts/                     # 🔄 CI/CD 脚本
 │   ├── ci_pre_xcodebuild.sh        # 构建前脚本
-│   └── ci_post_xcodebuild.sh       # 构建后脚本
+│   ├── ci_post_xcodebuild.sh       # 构建后脚本
+│   ├── lint.sh                     # 代码检查脚本
+│   ├── test.sh                     # 测试脚本
+│   └── build.sh                    # 构建脚本
 │
 ├── Screenshots.pco/                # 📱 截图项目（App Store）
 │   ├── project
@@ -293,25 +566,38 @@ IceCubesApp-main/
 ├── 配置文件                         # ⚙️ 项目配置
 │   ├── IceCubesApp.xcconfig.template # Xcode 构建配置模板
 │   ├── IceCubesApp-release.xcconfig  # 发布配置
+│   ├── IceCubesApp-debug.xcconfig    # 调试配置
 │   ├── .swiftformat                 # SwiftFormat 配置
+│   ├── .swiftlint.yml               # SwiftLint 配置
 │   ├── .gitignore                   # Git 忽略规则
-│   └── package.resolved             # SPM 依赖锁定
+│   ├── package.resolved             # SPM 依赖锁定
+│   ├── .env.example                 # 环境变量示例
+│   └── Gemfile                      # Ruby 依赖
 │
 ├── 文档文件                         # 📚 项目文档
 │   ├── README.md                    # 项目说明
+│   ├── CONTRIBUTING.md              # 贡献指南
 │   ├── CLAUDE.md                    # Claude AI 指南
 │   ├── AGENTS.MD                    # 代理指南
 │   ├── LICENSE                      # AGPL v3 许可证
 │   ├── PRIVACY.MD                   # 隐私政策
 │   ├── TERMS.MD                     # 使用条款
-│   └── PROJECT_DOCUMENTATION_CN.md  # 中文文档
+│   ├── CHANGELOG.md                 # 版本变更日志
+│   ├── PROJECT_DOCUMENTATION_CN.md  # 中文项目文档
+│   └── DEVELOPMENT_PLAN_7DAYS_CN.md # 7天开发计划
 │
 └── IceCubesApp.xcodeproj/          # 📦 Xcode 项目文件
     ├── project.pbxproj             # 项目配置文件
     ├── project.xcworkspace/        # 工作空间
+    │   └── xcshareddata/
+    │       └── xcschemes/          # Xcode scheme 配置
+    │           ├── IceCubesApp.xcscheme
+    │           ├── IceCubesApp-Release.xcscheme
+    │           ├── IceCubesApp-Debug.xcscheme
+    │           └── ...
     └── xcshareddata/               # 共享数据
-        ├── xcschemes/              # Xcode scheme 配置
-        └── ...
+        ├── xcschemes/
+        └── IDETemplateMacros.plist
 ```
 
 ### 项目统计
